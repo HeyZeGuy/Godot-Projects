@@ -85,14 +85,14 @@ public partial class Player : Area2D
 	}
 
 	// Reseting the board.
-	private void Start(Vector2 position){
+	public void Start(Vector2 position){
 		Position = position;
 		Show();
 		GetNode<CollisionShape2D>("CollisionShape2D").Disabled = false;
 	}
 
 	// Detecting collision.
-	private void OnBodyEntered(Node2D body){
+	public void OnBodyEntered(Node2D body){
 		Hide();
 		EmitSignal(SignalName.Hit); // Emitting "Hit" signal.
 		// Disabling collision at the end of the frame to avoid multii hits.
