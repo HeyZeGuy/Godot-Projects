@@ -29,6 +29,7 @@ public partial class Player : Area2D
 		var velocity = CalcVelocity();
 		
 		WalkAnimation(velocity);
+		RotatePlayer(velocity);
 		ChangePosition(velocity, delta);
 	}
 
@@ -56,6 +57,15 @@ public partial class Player : Area2D
 		return velocity;
 	}
 
+	private void RotatePlayer(Vector2 velocity){
+		if (velocity.Equals(new Vector2(0, 0))){
+			return;
+		} 
+		else {
+			Rotation = velocity.Angle() + Mathf.Pi/2;
+		}
+	}
+
 	// Changes position based on velocity.
 	private void ChangePosition(Vector2 velocity, double delta){
 		Position += velocity * (float)delta;
@@ -70,11 +80,11 @@ public partial class Player : Area2D
 		var MoveAnim = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
 		if (velocity.X != 0){
 			MoveAnim.Animation = "walk";
-			MoveAnim.FlipV = false;
-			MoveAnim.FlipH = velocity.X < 0;
+			// MoveAnim.FlipV = false;
+			// MoveAnim.FlipH = velocity.X < 0;
 		} else if (velocity.Y != 0){
 			MoveAnim.Animation = "up";
-			MoveAnim.FlipV = velocity.Y > 0;
+			// MoveAnim.FlipV = velocity.Y > 0;
 		}
 		
 		if (velocity.Length() > 0){

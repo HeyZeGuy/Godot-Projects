@@ -34,19 +34,15 @@ public partial class Main : Node
 
 	// Start countdown.
 	private void _on_start_timer_timeout(){
-		GD.Print("Start!");
-
 		GetNode<Timer>("MobTimer").Start();
 		GetNode<Timer>("ScoreTimer").Start();
 	}
 	// Updating score.
 	private void _on_score_timer_timeout(){
 		_score++;
-		GD.Print("Score: ", _score);
 	}
 	// Spawning mob.
 	private void _on_mob_timer_timeout(){
-		GD.Print("Spawn");
 		SpawnMob();
 	}
 
