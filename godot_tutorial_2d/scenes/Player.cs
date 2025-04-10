@@ -4,7 +4,7 @@ using Godot;
 public partial class Player : Area2D
 {
 	[Signal]
-	public delegate void HitEventHandler();
+	public delegate void HitEventHandler(); // Custom "Hit" signal to emit later.
 	
 	[Export]
 	public int Speed { get; set; } = 400; // How fast the player moves (px/sec).
@@ -94,7 +94,7 @@ public partial class Player : Area2D
 	// Detecting collision.
 	private void OnBodyEntered(Node2D body){
 		Hide();
-		EmitSignal(SignalName.Hit);
+		EmitSignal(SignalName.Hit); // Emitting "Hit" signal.
 		// Disabling collision at the end of the frame to avoid multii hits.
 		GetNode<CollisionShape2D>("CollisionShape2D").SetDeferred(CollisionShape2D.PropertyName.Disabled, true);
 	}
