@@ -3,6 +3,9 @@ using Godot;
 
 public partial class Player : Area2D
 {
+	[Signal]
+	public delegate void HitEventHandler();
+	
 	[Export]
 	public int Speed { get; set; } = 400; // How fast the player moves (px/sec).
 	public Vector2 ScreenSize; // Games window size.
@@ -18,6 +21,7 @@ public partial class Player : Area2D
 	public override void _Process(double delta)
 	{
 		PlayerMovement(delta);
+
 	}
 
 	// Calcuating player movement.
@@ -78,5 +82,20 @@ public partial class Player : Area2D
 		} else {
 			MoveAnim.Stop();
 		}
+	}
+
+	// Reseting the board.
+	private void Start(Vector2 position){
+		Position = position;
+		Show();
+		GetNode<CollisionShape2D>("CollisionShape2D").Disabled = false;
+	}
+
+	// Detecting collision.
+	private void OnBodyEntered(Node2D body){
+		Hide();
+		EmitSignal(SignalName.Hit);
+		// Disabling collision at the end of the frame to avoid multii hits.
+		GetNode<CollisionShape2D>("CollisionShape2D").SetDeferred(CollisionShape2D.PropertyName.Disabled, true);
 	}
 }
