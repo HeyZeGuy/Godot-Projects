@@ -8,6 +8,8 @@ public partial class Main : Node
 	public PackedScene MobScene { get; set; }
 
 	private int _score;
+	private enum PLAYER_STATE { DEAD, ALIVE };
+	private PLAYER_STATE _player_state;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -21,12 +23,15 @@ public partial class Main : Node
 	}
 
 	public void GameOver(){
+		_player_state = PLAYER_STATE.DEAD;
+
 		GetNode<Timer>("MobTimer").Stop();
 		GetNode<Timer>("ScoreTimer").Stop();
 	}
 
 	public void NewGame(){
 		_score = 0;
+		_player_state = PLAYER_STATE.ALIVE;
 
 		var Player = GetNode<Player>("Player");	
 		var StartPosition = GetNode<Marker2D>("StartPosition");	
@@ -71,9 +76,14 @@ public partial class Main : Node
 
 		// Spawn the mob by adding it to the Main scene.
 		AddChild(mob);
+
+		mob.NearMiss += _on_near_miss; // Adding connection to NearMiss mob signal.
 	}
 
-	private void _on_player_near_miss(){
-		_score += 10;
+	private void _on_near_miss(){
+		if (_player_state == PLAYER_STATE.ALIVE){
+			GD.Print("Near miss!");
+			_score += 10;
+		}
 	}
 }

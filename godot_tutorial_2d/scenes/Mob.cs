@@ -3,6 +3,8 @@ using System;
 
 public partial class Mob : RigidBody2D
 {
+	[Signal]
+	public delegate void NearMissEventHandler();
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -23,5 +25,9 @@ public partial class Mob : RigidBody2D
 		var animatedSprite2D = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
 		string[] mobTypes = animatedSprite2D.SpriteFrames.GetAnimationNames();
 		animatedSprite2D.Play(mobTypes[GD.Randi() % mobTypes.Length]);
+	}
+
+	private void _on_near_miss(){
+		EmitSignal(SignalName.NearMiss);
 	}
 }
