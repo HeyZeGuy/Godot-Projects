@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://d3vig6m4b1bno"]
+[gd_scene load_steps=8 format=3 uid="uid://d3vig6m4b1bno"]
 
 [ext_resource type="Texture2D" uid="uid://dv4j7poivmxia" path="res://art/playerGrey_up1.png" id="1_dqkch"]
 [ext_resource type="Script" uid="uid://b3o2b1qx4mrhj" path="res://scenes/Player.cs" id="1_qlg0r"]
@@ -35,11 +35,8 @@ animations = [{
 radius = 27.0
 height = 68.0
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_fjrip"]
-radius = 118.0
-height = 236.0
-
 [node name="Player" type="Area2D"]
+collision_mask = 2
 script = ExtResource("1_qlg0r")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -50,11 +47,4 @@ animation = &"walk"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_ur7pv")
 
-[node name="NearMissDetector" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="NearMissDetector"]
-shape = SubResource("CapsuleShape2D_fjrip")
-debug_color = Color(0.584314, 0.423529, 0.898039, 0.207843)
-
 [connection signal="body_entered" from="." to="." method="OnBodyEntered"]
-[connection signal="body_exited" from="NearMissDetector" to="." method="_on_near_miss_detector_body_exited"]

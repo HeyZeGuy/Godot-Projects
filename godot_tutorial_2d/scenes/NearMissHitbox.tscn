@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://dc4xv8t61tgb4"]
+
+[ext_resource type="Script" uid="uid://djqldlnl15ofm" path="res://scenes/NearMissHitbox.cs" id="1_apo2x"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_v01rj"]
+
+[node name="NearMissHitbox" type="Area2D"]
+collision_layer = 0
+script = ExtResource("1_apo2x")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_v01rj")
+debug_color = Color(0.740748, 0.349286, 0.787638, 0.231373)
+
+[connection signal="area_exited" from="." to="." method="_on_area_exited"]

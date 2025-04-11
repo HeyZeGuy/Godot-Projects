@@ -5,8 +5,6 @@ public partial class Player : Area2D
 {
 	[Signal]
 	public delegate void HitEventHandler(); // Custom "Hit" signal to emit later.
-	[Signal]
-	public delegate void NearMissEventHandler(); // Custom "NearMiss" signal to emit later.
 	
 	[Export]
 	public int Speed { get; set; } = 400; // How fast the player moves (px/sec).
@@ -109,10 +107,5 @@ public partial class Player : Area2D
 		EmitSignal(SignalName.Hit); // Emitting "Hit" signal.
 		// Disabling collision at the end of the frame to avoid multii hits.
 		GetNode<CollisionShape2D>("CollisionShape2D").SetDeferred(CollisionShape2D.PropertyName.Disabled, true);
-	}
-
-	private void _on_near_miss_detector_body_exited(Node2D body){
-		GD.Print("Near miss");
-		EmitSignal(SignalName.NearMiss);
 	}
 }
