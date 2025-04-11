@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Security.Cryptography.X509Certificates;
 
 public partial class Main : Node
 {
@@ -40,6 +41,7 @@ public partial class Main : Node
 	// Updating score.
 	private void _on_score_timer_timeout(){
 		_score++;
+		GD.Print(_score);
 	}
 	// Spawning mob.
 	private void _on_mob_timer_timeout(){
@@ -69,5 +71,9 @@ public partial class Main : Node
 
 		// Spawn the mob by adding it to the Main scene.
 		AddChild(mob);
+	}
+
+	private void _on_player_near_miss(){
+		_score += 10;
 	}
 }
