@@ -40,6 +40,8 @@ public partial class Main : Node
 		_score = 0;
 		_player_state = PLAYER_STATE.ALIVE;
 
+		GetTree().CallGroup("mobs", Node.MethodName.QueueFree); // Removing all mons in group.
+
 		var Player = GetNode<Player>("Player");	
 		var StartPosition = GetNode<Marker2D>("StartPosition");	
 		Player.Start(StartPosition.Position);
@@ -61,6 +63,7 @@ public partial class Main : Node
 		GetNode<Timer>("MobTimer").Start();
 		GetNode<Timer>("ScoreTimer").Start();
 	}
+
 	// Updating score.
 	private void _on_score_timer_timeout(){
 		_score++;
@@ -69,6 +72,7 @@ public partial class Main : Node
 		var hud = GetHUD();
 		hud.UpdateScore(_score);
 	}
+
 	// Spawning mob.
 	private void _on_mob_timer_timeout(){
 		SpawnMob();

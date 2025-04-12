@@ -1,8 +1,6 @@
-[gd_scene load_steps=11 format=3 uid="uid://bbvs1hor874y1"]
+[gd_scene load_steps=9 format=3 uid="uid://bbvs1hor874y1"]
 
 [ext_resource type="Script" uid="uid://bkk33sr8aucjx" path="res://scenes/Mob.cs" id="1_e5eql"]
-[ext_resource type="Texture2D" uid="uid://dwamvunyrjlx1" path="res://art/enemyFlyingAlt_1.png" id="2_l00qg"]
-[ext_resource type="Texture2D" uid="uid://dv2w3eh8wnqv0" path="res://art/enemyFlyingAlt_2.png" id="3_igqow"]
 [ext_resource type="Texture2D" uid="uid://bbur4oa17l5rx" path="res://art/enemySwimming_1.png" id="4_36gnr"]
 [ext_resource type="Texture2D" uid="uid://dpf7kmm8t1xii" path="res://art/enemySwimming_2.png" id="5_uoj7a"]
 [ext_resource type="Texture2D" uid="uid://cf2dgq0ba5bjo" path="res://art/enemyWalking_1.png" id="6_tbe8m"]
@@ -11,17 +9,6 @@
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_e5eql"]
 animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("2_l00qg")
-}, {
-"duration": 1.0,
-"texture": ExtResource("3_igqow")
-}],
-"loop": true,
-"name": &"fly",
-"speed": 5.0
-}, {
 "frames": [{
 "duration": 1.0,
 "texture": ExtResource("4_36gnr")
@@ -49,7 +36,7 @@ animations = [{
 radius = 24.0
 height = 66.0
 
-[node name="Mob" type="RigidBody2D"]
+[node name="Mob" type="RigidBody2D" groups=["mobs"]]
 collision_layer = 2
 gravity_scale = 0.0
 script = ExtResource("1_e5eql")
@@ -61,7 +48,7 @@ scale = Vector2(5, 5)
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_e5eql")
-animation = &"swim"
+animation = &"walk"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 rotation = 1.5708
