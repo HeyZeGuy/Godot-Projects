@@ -10,11 +10,11 @@ public partial class Main : Node
 	private int _score;
 	private enum PLAYER_STATE { DEAD, ALIVE };
 	private PLAYER_STATE _player_state;
-
+	
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		NewGame();
+		// NewGame();
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -22,11 +22,18 @@ public partial class Main : Node
 	{
 	}
 
+	public void OnHUDStartGame(){
+		NewGame();
+	}
+
 	public void GameOver(){
 		_player_state = PLAYER_STATE.DEAD;
 
 		GetNode<Timer>("MobTimer").Stop();
 		GetNode<Timer>("ScoreTimer").Stop();
+
+		var hud = GetHUD();
+		hud.ShowGameOver();
 	}
 
 	public void NewGame(){
@@ -36,7 +43,18 @@ public partial class Main : Node
 		var Player = GetNode<Player>("Player");	
 		var StartPosition = GetNode<Marker2D>("StartPosition");	
 		Player.Start(StartPosition.Position);
+
+		var hud = GetHUD();
+		hud.UpdateScore(0);
+		hud.ShowMessage("Get ready!");
+
+		var startTimer = GetNode<Timer>("StartTimer");
+		startTimer.Start();
+
+		startTimer.Timeout += () => GetNode<Label>("HUD/Message").Hide();
 	}
+
+
 
 	// Start countdown.
 	private void _on_start_timer_timeout(){
@@ -47,6 +65,9 @@ public partial class Main : Node
 	private void _on_score_timer_timeout(){
 		_score++;
 		GD.Print(_score);
+
+		var hud = GetHUD();
+		hud.UpdateScore(_score);
 	}
 	// Spawning mob.
 	private void _on_mob_timer_timeout(){
@@ -84,6 +105,13 @@ public partial class Main : Node
 		if (_player_state == PLAYER_STATE.ALIVE){
 			GD.Print("Near miss!");
 			_score += 10;
+
+			var hud = GetHUD();
+			hud.UpdateScore(_score);
 		}
+	}
+
+	public HUD GetHUD(){
+		return GetNode<HUD>("HUD");
 	}
 }
