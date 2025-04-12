@@ -4,7 +4,7 @@ using System;
 public partial class Mob : RigidBody2D
 {
 	[Signal]
-	public delegate void NearMissEventHandler();
+	public delegate void NearMissEventHandler(Vector2 position);
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -28,6 +28,6 @@ public partial class Mob : RigidBody2D
 	}
 
 	private void _on_near_miss(){
-		EmitSignal(SignalName.NearMiss);
+		EmitSignal(SignalName.NearMiss, Position);
 	}
 }

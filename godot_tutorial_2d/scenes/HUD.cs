@@ -38,4 +38,8 @@ public partial class HUD : CanvasLayer
 		message.Text = text;
 		message.Show();
 	}
+
+	public void NearMissMessage(Vector2 PlayerPos, Vector2 MobPos){
+		GD.Print("hud: ", PlayerPos, MobPos);
+	}
 }

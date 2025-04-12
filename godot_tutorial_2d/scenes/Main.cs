@@ -42,7 +42,7 @@ public partial class Main : Node
 
 		GetTree().CallGroup("mobs", Node.MethodName.QueueFree); // Removing all mons in group.
 
-		var Player = GetNode<Player>("Player");	
+		var Player = GetPlayer();	
 		var StartPosition = GetNode<Marker2D>("StartPosition");	
 		Player.Start(StartPosition.Position);
 
@@ -102,20 +102,26 @@ public partial class Main : Node
 		// Spawn the mob by adding it to the Main scene.
 		AddChild(mob);
 
-		mob.NearMiss += _on_near_miss; // Adding connection to NearMiss mob signal.
+		mob.NearMiss += (MobPosition) => _on_near_miss(MobPosition); // Adding connection to NearMiss mob signal.
 	}
 
-	private void _on_near_miss(){
+	private void _on_near_miss(Vector2 MobPosition){
 		if (_player_state == PLAYER_STATE.ALIVE){
-			GD.Print("Near miss!");
+			GD.Print("Near miss!", MobPosition);
 			_score += 10;
 
 			var hud = GetHUD();
+			var player = GetPlayer();
+			hud.NearMissMessage(PlayerPos: player.Position, MobPos: MobPosition);
 			hud.UpdateScore(_score);
 		}
 	}
 
 	public HUD GetHUD(){
 		return GetNode<HUD>("HUD");
+	}
+
+	public Player GetPlayer(){
+		return GetNode<Player>("Player");	
 	}
 }
