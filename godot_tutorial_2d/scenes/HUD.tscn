@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://cl7pfxlc2e0rq"]
+[gd_scene load_steps=4 format=3 uid="uid://cl7pfxlc2e0rq"]
 
 [ext_resource type="Script" uid="uid://csavmg382qo0r" path="res://scenes/HUD.cs" id="1_fls4u"]
 [ext_resource type="FontFile" uid="uid://caff0dax5osng" path="res://fonts/Xolonium-Regular.ttf" id="1_qpvh6"]
+[ext_resource type="PackedScene" uid="uid://drj88c5i2s52v" path="res://scenes/FadingPopup.tscn" id="3_1etfg"]
 
 [node name="HUD" type="CanvasLayer"]
 script = ExtResource("1_fls4u")
@@ -55,5 +56,7 @@ grow_vertical = 0
 theme_override_fonts/font = ExtResource("1_qpvh6")
 theme_override_font_sizes/font_size = 64
 text = "Start!"
+
+[node name="FadingPopup" parent="." instance=ExtResource("3_1etfg")]
 
 [connection signal="pressed" from="StartButton" to="." method="_on_start_button_pressed"]

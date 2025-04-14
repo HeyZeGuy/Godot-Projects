@@ -1,8 +1,10 @@
 using Godot;
-using System;
+// using System.Numerics;
 
 public partial class HUD : CanvasLayer
 {
+	private PackedScene FadingPopup = GD.Load<PackedScene>("res://scenes/FadingPopup.tscn");
+
 	[Signal]
 	public delegate void StartGameEventHandler();
 
@@ -40,6 +42,11 @@ public partial class HUD : CanvasLayer
 	}
 
 	public void NearMissMessage(Vector2 PlayerPos, Vector2 MobPos){
-		GD.Print("hud: ", PlayerPos, MobPos);
+		FadingPopup Popup = FadingPopup.Instantiate<FadingPopup>();
+
+		Popup.text = "+10";
+		Popup.position = PlayerPos;
+
+		AddChild(Popup);
 	}
 }

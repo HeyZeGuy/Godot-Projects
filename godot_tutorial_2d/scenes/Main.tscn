@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://d1nrmbksr3qxj" path="res://scenes/Main.cs" id="1_0bbpv"]
 [ext_resource type="PackedScene" uid="uid://bbvs1hor874y1" path="res://scenes/Mob.tscn" id="2_rarhs"]
 [ext_resource type="PackedScene" uid="uid://d3vig6m4b1bno" path="res://scenes/player.tscn" id="3_vcsgt"]
-[ext_resource type="PackedScene" path="res://scenes/HUD.tscn" id="4_rarhs"]
+[ext_resource type="PackedScene" uid="uid://cl7pfxlc2e0rq" path="res://scenes/HUD.tscn" id="4_rarhs"]
 
 [sub_resource type="Curve2D" id="Curve2D_c01mt"]
 _data = {
