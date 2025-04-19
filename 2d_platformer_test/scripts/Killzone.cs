@@ -18,11 +18,13 @@ public partial class Killzone : Area2D
 	
 	private void _on_body_entered(Node2D body)
 	{
+		Engine.TimeScale = 0.5;
 		timer.Start();
 	}
 
 	private void _on_timer_timeout()
 	{
 		GetTree().ReloadCurrentScene();
+		Engine.TimeScale = 1;
 	}
 }

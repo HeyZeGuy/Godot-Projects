@@ -30,6 +30,11 @@ public partial class Player : CharacterBody2D
 		if (direction != Vector2.Zero)
 		{
 			velocity.X = direction.X * Speed;
+			if (velocity.X > 0){
+				GetNode<AnimatedSprite2D>("AnimatedSprite2D").FlipH = false;
+			} else if (velocity.X < 0) {
+				GetNode<AnimatedSprite2D>("AnimatedSprite2D").FlipH = true;
+			}
 		}
 		else
 		{
